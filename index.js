@@ -11,7 +11,7 @@ let server = require('http').Server(app) // create server
 
 let io = require("socket.io")(server)
 
-server.listen(3000) // server listen post 3000
+server.listen(process.env.PORT || 3000) // server listen post 3000
 let UserOnl= []
 io.on("connection", function(socket){
     let person = new PersonUser()
