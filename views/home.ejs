@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>
+            Demo Socket
+        </title>
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+        <!-- <script>$(document).ready(function(){
+            alert("Hello Jquery")
+        })</script> -->
+        <script src="socket.io/socket.io.js"></script>
+        <script>
+            let socket = io("http://localhost:3000/")
+
+            socket.on("Server-send-data", function(data){
+                $("#content").append(data + "<br>")
+            })
+
+            socket.on("Server-send-ds", function(data){
+                $("#ds").html('')
+                data.map(function(user){
+                    $("#ds").append(`<p>`+user.FullName+`</p>`)
+                })
+            })
+
+            $(document).ready(function(){
+                $("#send").click(function(){
+                    let message = $("#textMess").val()
+                    socket.emit("Client-send-data", message)
+                })
+            })
+            $(document).ready(function(){
+                $("#setName").click(function(){
+                    let fullName = $("#fullName").val()
+                    socket.emit("Client-send-name", fullName)
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div id="ds" style="position: absolute; border: 1px solid gray; text-align: center; width: 300px;">
+
+        </div>
+        <div style="border: 1px solid gray; width: 400px;height: auto;margin: auto;">
+            <div id="Information" style="padding-top: 50px; padding-left: 20%;">
+                Name : <input id="fullName" type="text"/>
+                <button id="setName" type="submit">Send</button>
+            </div>
+
+            <div id="sendToServer" style="padding-top: 50px;padding-left: 20%;">
+                Message : <input id="textMess" type="text"/>
+                <button id="send" type="submit" disabled>Send</button>
+            </div>
+
+            <div style="border: 1px solid gray; width: 400px;height: auto;margin: auto;text-align: center;">
+                <p id="content"></p>
+            </div>
+        </div>
+    </body>
+</html>
