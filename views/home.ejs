@@ -9,7 +9,7 @@
         })</script> -->
         <script src="socket.io/socket.io.js"></script>
         <script>
-            let socket = io("http://localhost:3000/")
+            let socket = io("https://chatroomoneturn.herokuapp.com/")
 
             socket.on("Server-send-data", function(data){
                 $("#content").append(data + "<br>")
